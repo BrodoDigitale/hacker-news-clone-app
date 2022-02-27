@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #e17055;
+  color: #212329;
   /*link-color: #b55a44;*/
 }
 
@@ -14,6 +14,7 @@ h1 {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  color: #f64747;
 }
 
 .loading {

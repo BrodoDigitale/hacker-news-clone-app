@@ -10,6 +10,7 @@ function App() {
   //получение новостей от api
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  console.log(news)
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,12 +34,17 @@ function App() {
     <div className="body">
       <Header />
       <Switch>
-      <Route path="/"
-      component={NewsList}
-      news={news}
+      <Route 
+      exact path="/"
+      >
+      <NewsList
+      allNews={news}
       isLoading={isLoading}
-      exact={true} />
-      <Route component={PageNotFound} />
+      />
+      </Route>
+      <Route path="*">
+      component={PageNotFound}
+      </Route>
       </Switch>
     </div>
     </BrowserRouter>

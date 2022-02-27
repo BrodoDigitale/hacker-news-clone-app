@@ -2,7 +2,9 @@ import React from 'react';
 import NewsCard from '../App/NewsCard/NewsCard';
 
 const NewsList = (props) => {
-const news = props.news
+console.log(props.isLoading)
+const news = props.allNews
+
   return (
     <React.Fragment>
       {props.isLoading ? (
