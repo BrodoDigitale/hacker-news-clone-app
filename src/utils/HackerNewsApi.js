@@ -23,6 +23,12 @@ class HackerNewsApi {
       headers: this._headers,
     }).then(this._handleResponse);
   }
+  getComments(comment) {
+    return fetch(`${this._url}/item/${comment}.json`, {
+      method: "GET",
+      headers: this._headers,
+    }).then(this._handleResponse);
+  }
 }
 
 //Создание api

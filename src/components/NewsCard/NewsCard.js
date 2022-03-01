@@ -1,18 +1,21 @@
 import React from "react";
 import "./NewsCard.css";
+import { Link } from "react-router-dom";
 
-const Link = ({ url, title, className }) => (
+/*const Link = ({ url, title, className }) => (
   <a className={className} href={url} target="_blank" rel="noreferrer">
     {title}
   </a>
-);
-
+);*/
+//<Link className="news__title-link" to={`/${id}`}/>
 const NewsCard = ({ news: { id, by, title, score, time, url } }) => {
+
+
   return (
     <div className="news">
-      <div className="news__title">
-        <Link className="news__title-link" url={url} title={title} />
-      </div>
+      <Link className="news__title" to={`/${id}`}>
+      <p className="news__title-link">{title}</p>
+      </Link>
       <div>
         <span className="news__info">
           by{" "}

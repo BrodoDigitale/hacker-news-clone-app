@@ -3,6 +3,7 @@ import {newsApi} from '../../utils/HackerNewsApi';
 import {React, useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import NewsList from '../NewsList/NewsList';
+import NewsPage from '../NewsPage/NewsPage';
 import PageNotFound from '../PageNotFound/PageNotFouns';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ function App() {
   //получение новостей от api
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(news)
+
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,18 +33,24 @@ function App() {
   return (
     <BrowserRouter>
     <div className="body">
-      <Header />
       <Switch>
       <Route 
       exact path="/"
       >
+      <Header />
       <NewsList
-      allNews={news}
+      news={news}
       isLoading={isLoading}
       />
       </Route>
+      <Route path="/:id">
+       <NewsPage
+       news={news}
+       isLoading={isLoading}
+       />
+      </Route>
       <Route path="*">
-      component={PageNotFound}
+      <PageNotFound/>
       </Route>
       </Switch>
     </div>
