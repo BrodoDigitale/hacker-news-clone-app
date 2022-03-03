@@ -7,18 +7,20 @@
   padding: 10px;
 }
 
-.news__title {
-  font-size: 18px;
-  text-decoration: none;
-}
 .news__title-link {
     color: #f64747;
     text-decoration: none;
     margin-bottom: 10px;
+    font-size: 18px;
+    display: inline-block;
   }
 .news__info {
     margin: 4px;
 }
 .news__link:hover {
   text-decoration: none;
+}
+.news__title-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

@@ -1,25 +1,22 @@
 import React from "react";
 import "./NewsCard.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
-/*const Link = ({ url, title, className }) => (
-  <a className={className} href={url} target="_blank" rel="noreferrer">
+const Link = ({ url, title, className }) => (
+  <a className={className} href={url}>
     {title}
   </a>
-);*/
+);
 //<Link className="news__title-link" to={`/${id}`}/>
 const NewsCard = ({ news: { id, by, title, score, time, url } }) => {
 
-
   return (
     <div className="news">
-      <Link className="news__title" to={`/${id}`}>
-      <p className="news__title-link">{title}</p>
-      </Link>
+      <Link className="news__title-link" url={`/${id}`} title={title} />
       <div>
         <span className="news__info">
           by{" "}
-          <Link url={`https://news.ycombinator.com/user?id=${by}`} title={by} />
+          <Link url={`https://news.ycombinator.com/user?id=${by}`} title={by}/>
         </span>
         |
         <span className="news__info">
