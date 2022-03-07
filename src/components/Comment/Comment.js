@@ -1,4 +1,6 @@
 import React from "react";
+import "./Comment.css";
+
 //import { useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 
@@ -12,11 +14,11 @@ const Comment = (props) => {
   function getSubcomments(subcomments) {
     console.log(subcomments);
     return subcomments.map((i) => {
-      if (!i.hasOwnProperty('deleted') && !i.hasOwnProperty('dead')) {
+      if (!i.hasOwnProperty("deleted") && !i.hasOwnProperty("dead")) {
         return (
           <div key={i.id} className="commentList__comment">
             {Comment(i)}
-            {i.hasOwnProperty('kids') ? getSubcomments(i.kids) : null}
+            {i.hasOwnProperty("kids") ? getSubcomments(i.kids) : null}
           </div>
         );
       } else {
@@ -41,7 +43,14 @@ const Comment = (props) => {
             return <Comment key={reply.id} comment={reply} type="child" />
         });*/
     return (
-      <div style={{ marginLeft: "25px", marginTop: "10px" }}>
+      <div className="comment">
+        <p className="comment__info">
+          {comment.by} at{" "}
+          {new Date(comment.time * 1000).toLocaleDateString("en-GB", {
+            hour: "numeric",
+            minute: "numeric",
+          })}
+        </p>
         {ReactHtmlParser(comment.text)}
       </div>
     );

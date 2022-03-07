@@ -8,6 +8,11 @@ import ReactHtmlParser from 'react-html-parser';
 import "./NewsPage.css";
 
 
+/*const commentsCounter = (arr) =>{
+  const result = arr.reduce((count, current) => count + current, 0);
+  return result
+}*/
+
 const Link = ({ url, title, className}) => (
   <a className={className} href={url} target="_blank" rel="noreferrer">
     {title}
@@ -93,14 +98,21 @@ const getSubcomments = async (comment) => {
         <span className="newsPage__info">
           <Link
             url={`https://news.ycombinator.com/item?id=${id}`}
-            title={`${thisNews.kids && thisNews.kids.length > 0 ? thisNews.kids.length : 0} comments`}
+            title={`${thisNews.kids&&isLoaded  ? thisNews.kids.length : 0} comments`}
           />
         </span>
         |
         <button className="newsPage__go-back-button" onClick={history.goBack}>Go back</button>
       {isLoaded
-      ?
-      <CommentsList comments={comments}/>
+      ? (
+        <React.Fragment>
+        <p className="newsPage__comments-title ">Comments</p>
+        <CommentsList 
+        comments={comments}
+        isLoaded={isLoaded}
+        />
+        </React.Fragment>
+      )
       :
       null
       }

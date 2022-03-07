@@ -8,8 +8,9 @@ import { newsApi } from "../../utils/HackerNewsApi";
 const CommentsList = (props) => {
   //const [comments, setComments] = useState([]);
   //const [kidsComments, setKidsComments] = useState([]);
-  const comments = props.comments
-  console.log(comments)
+  //const comments = props.comments
+  const isLoaded = props.isLoaded
+  //console.log(comments)
   /*useEffect(() => {
     //const parentIds = props.comments;
     //получаем комментарии верхнего уровня
@@ -133,10 +134,9 @@ const CommentsList = (props) => {
 
   return (
     <div className="commentsList">
-      <p className="commentsList__title">Comments</p>
         {
-
-        comments.map((comment) => 
+        isLoaded ?
+        props.comments.map((comment) => 
           <Comment  key={comment.id} {...comment} />
 
           /*<div>
@@ -153,7 +153,7 @@ const CommentsList = (props) => {
     : null
     }
   </div>*/
-        ) 
+        ) : null
     }
     </div>
   );

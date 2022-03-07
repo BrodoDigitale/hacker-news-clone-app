@@ -1,12 +1,9 @@
-.commentsList__title {
-    margin: 10px 0;
-}
+
 .commentList__comment-thread {
     list-style: none;
 }
 
 .commentList__comment {
-    margin-top: 10px;
     margin-left: 25px;
     font-size: 14px;
     display: flex;
