@@ -1,56 +1,145 @@
 import React from "react";
 import "./CommentsList.css";
+import  Comment  from "../Comment/Comment";
 import { useEffect, useState } from "react";
 import { newsApi } from "../../utils/HackerNewsApi";
-import ReactHtmlParser from "react-html-parser";
+//import ReactHtmlParser from "react-html-parser";
 
 const CommentsList = (props) => {
-  const parentIds = props.comments;
-  const [comments, setComments] = useState([]);
-  const [kidsComments, setKidsComments] = useState([]);
-
-  useEffect(() => {
-    Promise.all(parentIds?.map((i) => newsApi.getComments(i))).then((res) => {
-      console.log(res);
-      setComments(res);
-      //res.map((i) => childCommentsLoader(i))
-    });
+  //const [comments, setComments] = useState([]);
+  //const [kidsComments, setKidsComments] = useState([]);
+  const comments = props.comments
+  console.log(comments)
+  /*useEffect(() => {
+    //const parentIds = props.comments;
+    //получаем комментарии верхнего уровня
+    //Promise.all(parentIds?.map((i) => newsApi.getComments(i))).then((res) => {
+    //const commentsTree = res.map((i) => getAllcomments(i));
+    const commentsTree = getCommentsTree()
+    setComments(commentsTree);
+    //console.log(commentsTree);
+      
+      //setComments(res);
+    //});
   }, [props.comments]);
 
-  function Comment({ comment }) {
-    const nestedComments = (kidsComments || []).map((comment) => {
-      return <Comment key={comment.id} comment={comment} type="child" />;
-    });
+  /*useEffect(() => {
+    //получем ответы на комментарий
+    if(comments.length > 0) {
 
-    return (
-      <li style={{ marginLeft: "25px", marginTop: "10px" }}>
-        <p>{ReactHtmlParser(comment.text)}</p>
-        {nestedComments}
-      </li>
-    );
-  }
-  /*const childCommentsLoader = (comment) => {
-        if(comment.kids && comment.kids.length > 0) {
-          console.log(comment.kids)
-          Promise.all(comment.kids.map((i) => newsApi.getComments(i)))
-          .then((res) => {
-            console.log(res)
-            setKidsComments(res)
-            res.map((i) => childCommentsLoader(i))
-          })
+        console.log(comments);
+    }
+  }, []);*/
+
+
+
+  /*function Comment({ comment }) {
+       comment.kids ? console.log(`${comment.id}: ${[comment.kids].length}`) : console.log(`${comment.id}: no kids`)
+       const subcomments = [] || [comment.kids].map((child) => {
+           return <Comment key={child.id} subComment={child}/>
+       });
+        return (
+            <div className="commentList__comment">
+              {ReactHtmlParser(comment.text)}
+              {subcomments}
+            </div>
+        ) 
+  }*/
+  /*function getSubcomments(commentKids) {
+    return commentKids.map((i) => {
+        if ((!i.hasOwnProperty(`deleted`)) && (!i.hasOwnProperty(`dead`))) {
+            return (
+                <div key={i.id} className="commentList__comment">
+                    {Comment(i)}
+                    {i.hasOwnProperty(`kids`) ? getSubcomments(i.kids) : null}
+                </div>
+            ); 
         } else {
-            return
+            return;
         }
-      }*/
+    });
+}
+  /*function subComment({ comment }) {
+    let nestedComments
+        nestedComments = (comment.kids || []).map((comment) => {
+            console.log(comment)
+            return <Comment key={comment.id} comment={comment} type="child" />;
+          });
+          console.log(comment)
+    return (
+    <>
+      <li className="commentList__comment">
+        <span>{ReactHtmlParser(comment.text)}</span>
+      </li>
+      {nestedComments}
+      </>
+    );
+  }*/
+
+  /*const getAllcomments = (comment) => {
+    const comments =[]
+    if(!comment.kids) {
+      return comments;
+    } else {
+      Promise.all(comment.kids.map((i) => newsApi.getComments(i)))
+      .then((subComments) => subComments.forEach((i) => 
+      {const commentsTree = getCommentsTree(i)
+      comments.push(commentsTree)}
+      ))
+    }
+    return comments
+  }*/
+  
+  /*const getAllcomments = (comment) => {
+    const resultComment = Object.assign({}, comment);
+    if (!comment.kids) {
+      return resultComment;
+    } else {
+      const commentWIthReplies = [];
+      comment.kids.forEach((i) => {
+        newsApi.getComments(i).then((res) => {
+          const commentTree = getAllcomments(res);
+          commentWIthReplies.push(commentTree);
+        });
+      });
+      setKidsComments(commentWIthReplies)
+      resultComment.kids = commentWIthReplies;
+      //console.log(resultComment);
+      //setComments(...comments, resultComment);
+      return resultComment;
+    }
+  };
+  /*const getCommentsTree = (comment) => {
+    const result = Object.assign({}, comment);
+    if (result.hasOwnProperty(`kids`)) {
+        const tmp = [];
+        result.kids.forEach((i) => {
+            newsApi.getComments(i)
+            .then((res) => {
+                const answer =  getCommentsTree(res)
+                tmp.push(answer)
+                
+            })
+        });
+        result.kids = tmp;
+        console.log(result)
+        setKidsComments(kidsComments.push(result))
+        return result;
+    } else {
+        console.log(result)
+        return result;
+    }
+  }*/
 
   return (
     <div className="commentsList">
       <p className="commentsList__title">Comments</p>
-      <ul>
-      {comments?.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+        {
 
-        /*<div>
+        comments.map((comment) => 
+          <Comment  key={comment.id} {...comment} />
+
+          /*<div>
     <p className="newsPage__comment-info">{comment.by} at {
                 new Date(comment.time * 1000).toLocaleDateString("en-GB", {
                   hour: "numeric",
@@ -64,8 +153,8 @@ const CommentsList = (props) => {
     : null
     }
   </div>*/
-      ))}
-    </ul>
+        ) 
+    }
     </div>
   );
 };

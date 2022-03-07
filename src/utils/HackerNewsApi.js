@@ -23,12 +23,29 @@ class HackerNewsApi {
       headers: this._headers,
     }).then(this._handleResponse);
   }
-  getComments(comment) {
+  getComment(comment) {
     return fetch(`${this._url}/item/${comment}.json`, {
       method: "GET",
       headers: this._headers,
     }).then(this._handleResponse);
   }
+  getComments (ids) {
+    const comments = Promise.all(ids.map((commentId) => this.getComment(commentId)));
+    return comments;
+};
+  /*getSubcomments(comment) {
+    const subcomments =[]
+    if(!comment.kids) {
+      return subcomments;
+    } else {
+      this.getComments(comment.kids)
+      .then((subComments) => subComments.forEach((i) => 
+
+      this.getSubcomments(i)))
+
+    }
+
+  }*/
 }
 
 //Создание api

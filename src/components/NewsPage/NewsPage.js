@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useHistory } from 'react-router-dom';
+import { newsApi } from "../../utils/HackerNewsApi";
 import CommentsList from "../CommentsList/CommentsList";
 import ReactHtmlParser from 'react-html-parser';
 import "./NewsPage.css";
@@ -18,20 +19,56 @@ const NewsPage = (props) => {
   const history = useHistory();
   const { id } = useParams()
   const  [thisNews, setThisNews] = useState([])
-
+  const  [isLoaded, setIsLoaded] = useState([false])
+  const  [comments, setComments] = useState([])
 
   useEffect(() => {
-    if(props.news.length > 0) {
-      setThisNews(props.news.find((i) => i.id == id))
-    } 
-  }, [props.news]);
+      newsApi.getTheNews(id).then((res) => {
+        setThisNews(res)
+        if(res.kids) {
+          getCommentsTree(res).then((res) => {
+            console.log(res)
+            setTimeout(() => {
+              setComments(res)
+              setIsLoaded(true)}, 1000);
+          })
+        }
+      }
+      )
+  }, []);
 
 
+  const getCommentsTree = async (news) => {
+    const comments = [];
+        const commentsIds = news.kids;
+        const commentsChild = await newsApi.getComments(commentsIds);
+        commentsChild.forEach(async (it) => {
+            const subChildTree = await getSubcomments(it);
+            comments.push(subChildTree);
+        });
+    return comments;
+};
 
-  /*console.log(id)
-  console.log(props.news)
-  console.log(thisNews)*/
- 
+const getSubcomments = async (comment) => {
+    const result = Object.assign({}, comment);
+
+    if (result.hasOwnProperty(`kids`)) {
+        const kids = result.kids;
+        const tmp = [];
+        kids.forEach(async (i) => {
+            const comment = await newsApi.getComment(i);
+            const newComment = await getSubcomments(comment);
+            tmp.push(newComment);
+        });
+        
+        result.kids = tmp;
+
+        return result;
+    } else {
+        return result;
+    }
+};
+
 
   return (
     <React.Fragment>
@@ -61,9 +98,9 @@ const NewsPage = (props) => {
         </span>
         |
         <button className="newsPage__go-back-button" onClick={history.goBack}>Go back</button>
-      {thisNews.kids && thisNews.kids.length > 0
+      {isLoaded
       ?
-      <CommentsList comments={thisNews.kids}/>
+      <CommentsList comments={comments}/>
       :
       null
       }
