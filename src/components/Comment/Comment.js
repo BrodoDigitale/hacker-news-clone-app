@@ -5,9 +5,12 @@ import "./Comment.css";
 import ReactHtmlParser from "react-html-parser";
 
 const Comment = (props) => {
-  const comment = props;
+  const comment = props
 
-  console.log(comment);
+
+  console.log(props);
+ 
+
   //console.log(props)
   //const [kidsCommentsParentId, setKidsCommentsParentId] = useState(-1);
 

@@ -1,3 +1,4 @@
+ 
 import React from "react";
 import "./CommentsList.css";
 import  Comment  from "../Comment/Comment";
@@ -9,7 +10,10 @@ const CommentsList = (props) => {
   //const [comments, setComments] = useState([]);
   //const [kidsComments, setKidsComments] = useState([]);
   //const comments = props.comments
-  const isLoaded = props.isLoaded
+  //const isLoaded = props.isLoaded
+  const comments = props.comments
+  console.log(comments)
+  //props.comments.map((i) => console.log(i.kids))
   //console.log(comments)
   /*useEffect(() => {
     //const parentIds = props.comments;
@@ -23,14 +27,8 @@ const CommentsList = (props) => {
       //setComments(res);
     //});
   }, [props.comments]);
+  */
 
-  /*useEffect(() => {
-    //получем ответы на комментарий
-    if(comments.length > 0) {
-
-        console.log(comments);
-    }
-  }, []);*/
 
 
 
@@ -134,10 +132,14 @@ const CommentsList = (props) => {
 
   return (
     <div className="commentsList">
+        {console.log(props.comments)}
         {
-        isLoaded ?
-        props.comments.map((comment) => 
-          <Comment  key={comment.id} {...comment} />
+        comments.map((comment) => 
+          { console.log(comment)
+            console.log(comment.kids)
+            return <Comment  key={comment.id} {...comment}/>
+          }
+          
 
           /*<div>
     <p className="newsPage__comment-info">{comment.by} at {
@@ -147,13 +149,12 @@ const CommentsList = (props) => {
                 })
     }</p>
     <p>{ ReactHtmlParser(comment.text) }</p>
-
     {comment.kids ? 
     <p></p>
     : null
     }
   </div>*/
-        ) : null
+        ) 
     }
     </div>
   );

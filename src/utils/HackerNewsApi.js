@@ -40,13 +40,13 @@ class HackerNewsApi {
     } else {
       this.getComments(comment.kids)
       .then((subComments) => subComments.forEach((i) => 
-
+      
       this.getSubcomments(i)))
 
-    }
+    }*/
 
-  }*/
-}
+  }
+
 
 //Создание api
 export const newsApi = new HackerNewsApi({
