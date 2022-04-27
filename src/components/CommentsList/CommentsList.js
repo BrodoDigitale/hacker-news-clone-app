@@ -132,10 +132,11 @@ const CommentsList = (props) => {
 
   return (
     <div className="commentsList">
+        <h2 className="commentsList_title">Comments</h2>
         {console.log(props.comments)}
         {
         comments.map((comment) => 
-          { console.log(comment)
+          { 
             console.log(comment.kids)
             return <Comment  key={comment.id} {...comment}/>
           }

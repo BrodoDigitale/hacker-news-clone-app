@@ -33,11 +33,11 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
     <div className="body">
       <Switch>
       <Route 
-      exact path="/hacker-news-clone-app"
+      exact path="/"
       >
       <Header />
       <NewsList
@@ -45,7 +45,7 @@ function App() {
       isLoading={isLoading}
       />
       </Route>
-      <Route path="/hacker-news-clone-app/:id" exact component={NewsPage}>
+      <Route path="/:id" exact component={NewsPage}>
        <NewsPage
        news={news}
        isLoaded={isLoaded}

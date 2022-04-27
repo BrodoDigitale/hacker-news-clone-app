@@ -20,7 +20,7 @@ const Link = ({ url, title, className }) => (
 );
 
 const LoadingData = (notFound) => (
-  <>{notFound ? <PageNotFound /> : <p className="loading">Loading...</p>}</>
+  <>{notFound === true ? <PageNotFound /> : <p className="loading">Loading...</p>}</>
 );
 
 //{ news: { by, title, score, time, url }, props }
@@ -126,8 +126,10 @@ const NewsPage = (props) => {
           </button>
           {isLoaded ? (
             <React.Fragment>
-              <p className="newsPage__comments-title ">Comments</p>
-              <CommentsList comments={comments} isLoaded={isLoaded} />
+              {thisNews.kids ? (
+                <CommentsList comments={comments} isLoaded={isLoaded} />
+              ) : (null)
+              }
             </React.Fragment>
           ) : null}
         </div>
