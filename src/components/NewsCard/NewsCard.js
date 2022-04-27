@@ -12,7 +12,7 @@ const NewsCard = ({ news: { id, by, title, score, time, url } }) => {
 
   return (
     <div className="news">
-      <Link className="news__title-link" url={`/${id}`} title={title} />
+      <Link className="news__title-link" url={`/hacker-news-clone-app/${id}`} title={title} />
       <div>
         <span className="news__info">
           by{" "}

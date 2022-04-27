@@ -4,30 +4,35 @@ import {React, useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import NewsList from '../NewsList/NewsList';
 import NewsPage from '../NewsPage/NewsPage';
-import PageNotFound from '../PageNotFound/PageNotFouns';
+import PageNotFound from '../PageNotFound/PageNotFound';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
   //получение новостей от api
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
 
   useEffect(() => {
-    setIsLoading(true);
-    newsApi.getAllNews()
-      .then((res) => {
-        console.log(res)
-        Promise.all(res.slice(0, 100).map((i) => newsApi.getTheNews(i)))
-        .then((news) => {
-          console.log(news)
-          setNews(news);
-          setIsLoading(false);
+    if(!isLoaded)
+    {
+      setIsLoading(true);
+      newsApi.getAllNews()
+        .then((res) => {
+          console.log(res)
+          Promise.all(res.slice(0, 100).map((i) => newsApi.getTheNews(i)))
+          .then((news) => {
+            console.log(news)
+            setNews(news);
+            setIsLoading(false);
+            setIsLoaded(true);
+          })
         })
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+        .catch(() => {
+          setIsLoading(false);
+        });
+    }
   }, []);
 
   return (
@@ -35,7 +40,7 @@ function App() {
     <div className="body">
       <Switch>
       <Route 
-      exact path="/"
+      exact path="/hacker-news-clone-app"
       >
       <Header />
       <NewsList
@@ -43,10 +48,10 @@ function App() {
       isLoading={isLoading}
       />
       </Route>
-      <Route path="/:id">
+      <Route path="/hacker-news-clone-app/:id">
        <NewsPage
        news={news}
-       isLoading={isLoading}
+       isLoaded={isLoaded}
        />
       </Route>
       <Route path="*">
