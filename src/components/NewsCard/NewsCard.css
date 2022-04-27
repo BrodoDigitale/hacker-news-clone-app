@@ -8,7 +8,7 @@
 }
 
 .news__title-link {
-    color: #f64747;
+    color: #000;
     text-decoration: none;
     margin-bottom: 10px;
     font-size: 18px;
@@ -16,6 +16,7 @@
   }
 .news__info {
     margin: 4px;
+    color: #828282;
 }
 .news__link:hover {
   text-decoration: none;

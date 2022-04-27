@@ -16,7 +16,7 @@ const NewsCard = ({ news: { id, by, title, score, time, url } }) => {
       <div>
         <span className="news__info">
           by{" "}
-          <Link url={`https://news.ycombinator.com/user?id=${by}`} title={by}/>
+          <Link className="news__info" url={`https://news.ycombinator.com/user?id=${by}`} title={by}/>
         </span>
         |
         <span className="news__info">

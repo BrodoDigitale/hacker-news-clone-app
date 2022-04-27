@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
   return (
     <React.Fragment>
-      <h1>Breaking news</h1>
+      <h1>100 new stories from Hacker News</h1>
     </React.Fragment>
   );
 };

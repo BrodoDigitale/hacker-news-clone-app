@@ -9,13 +9,15 @@
 .body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   max-width: 1024px;
+  margin: 0 auto;
+  background-color: rgb(246, 246, 239);
 }
 
 h1 {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  color: #f64747;
+  color: #ff6600;
 }
 
 .loading {
