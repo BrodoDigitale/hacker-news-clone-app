@@ -15,24 +15,21 @@ function App() {
 
 
   useEffect(() => {
-    if(!isLoaded)
-    {
-      setIsLoading(true);
-      newsApi.getAllNews()
-        .then((res) => {
-          console.log(res)
-          Promise.all(res.slice(0, 100).map((i) => newsApi.getTheNews(i)))
-          .then((news) => {
-            console.log(news)
-            setNews(news);
-            setIsLoading(false);
-            setIsLoaded(true);
-          })
-        })
-        .catch(() => {
+    setIsLoading(true);
+    newsApi.getAllNews()
+      .then((res) => {
+        console.log(res)
+        Promise.all(res.slice(0, 100).map((i) => newsApi.getTheNews(i)))
+        .then((news) => {
+          console.log(news)
+          setNews(news);
           setIsLoading(false);
-        });
-    }
+          setIsLoaded(true);
+        })
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -48,13 +45,13 @@ function App() {
       isLoading={isLoading}
       />
       </Route>
-      <Route path="/hacker-news-clone-app/:id">
+      <Route path="/hacker-news-clone-app/:id" exact component={NewsPage}>
        <NewsPage
        news={news}
        isLoaded={isLoaded}
        />
       </Route>
-      <Route path="*">
+      <Route path="*" exact component={PageNotFound}>
       <PageNotFound/>
       </Route>
       </Switch>

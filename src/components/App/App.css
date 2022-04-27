@@ -8,6 +8,7 @@
 
 .body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  max-width: 1024px;
 }
 
 h1 {
