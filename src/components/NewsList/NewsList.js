@@ -1,9 +1,11 @@
 import React from 'react';
 import NewsCard from '../NewsCard/NewsCard';
+import Header from '../Header/Header';
 
 const NewsList = (props) => {
   return (
     <React.Fragment>
+      <Header />
       {props.isLoading ? (
         <p className="loading">Loading news...</p>
       ) : (

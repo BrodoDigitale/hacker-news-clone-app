@@ -36,7 +36,6 @@ const NewsPage = (props) => {
   useEffect(() => {
     if (props.isLoaded) {
       const news = props.news.find((i) => i.id == id);
-      console.log(news);
       if( news === undefined) {
         setNewsNotFound(true);
       }

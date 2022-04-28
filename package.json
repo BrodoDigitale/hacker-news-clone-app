@@ -1,7 +1,7 @@
 {
   "name": "test-assignment-lizaalert",
   "version": "0.1.0",
-  "homepage": "https://brododigitale.github.io/hacker-news-clone-app",
+  "homepage": "https://brododigitale.github.io/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
